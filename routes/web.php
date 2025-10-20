@@ -1,20 +1,28 @@
 <?php
 
-use App\Http\Controllers\Admin\PropertyController;
+use App\Http\Controllers\Admin\OptionController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-
-Route::get('/', function () {
-    return Inertia::render('Welcome');
-})->name('home');
+$idRegex = '[0-9]+';
+$slugRegex = '[a-z0-9\-]+';
 
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/biens', [App\Http\Controllers\PropertyController::class, 'index'])->name('property.index');
+Route::get('/biens/{slug}-{property}', [App\Http\Controllers\PropertyController::class, 'index'])->name('property.show')->where([
+    'property' => $idRegex,
+    'slug' => $slugRegex,
+]);
+
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::resource('property', PropertyController::class)->except('show');
+    Route::resource('property', App\Http\Controllers\Admin\PropertyController::class)->except('show');
+    Route::resource('option', OptionController::class)->except('show');
 });
 
 require __DIR__.'/settings.php';

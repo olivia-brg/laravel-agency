@@ -34,8 +34,8 @@
                 @include('shared.input', ['class' => 'w-full', 'label' => 'Ville', 'name' => 'city', 'value' => $property->city])
                 @include('shared.input', ['class' => 'w-full', 'label' => 'Code postal', 'name' => 'postal_code', 'value' => $property->postal_code])
             </div>
-
-            @include('shared.checkbox', ['label' => 'Vendu', 'name' => 'sold', 'value' => $property->sold])
+            @include('shared.select', ['label' => 'Options', 'name' => 'options', 'value' => $property->options()->pluck('id'), 'multiple' => true])
+            @include('shared.checkbox', ['label' => 'Vendu', 'name' => 'sold', 'value' => $property->sold, 'options' => $options])
 
         </div>
 
