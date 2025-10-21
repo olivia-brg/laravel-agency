@@ -20,7 +20,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul>
                 <li class="nav-item">
-                    <a href="{{ route('property.index') }}" @class(['nav-link', 'active' => str_contains($route, 'property.')])>Gérer les biens</a>
+                    <a href="{{ route('property.index') }}" @class(['nav-link', 'active' => str_contains($route, 'property.')])>Tous nos biens</a>
                 </li>
             </ul>
         </div>
