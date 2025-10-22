@@ -11,19 +11,22 @@
 
     <div>
         <h4>Intéressé par ce bien ?</h4>
-        <form action="" method="post">
+
+        @include('shared.flash')
+
+        <form action="{{ route('property.contact', $property) }}" method="post">
             @csrf
             <div class="row">
-                @include('shared.input', ['class' => 'w-full', 'label' => 'Prénom', 'name' => 'firstname'])
-                @include('shared.input', ['class' => 'w-full', 'label' => 'Nom', 'name' => 'lastname'])
+                @include('shared.input', ['class' => 'w-full', 'label' => 'Prénom', 'name' => 'firstname', 'value' => 'Jean'])
+                @include('shared.input', ['class' => 'w-full', 'label' => 'Nom', 'name' => 'lastname', 'value' => 'Dubois'])
             </div>
             <div class="row">
-                @include('shared.input', ['class' => 'w-full', 'label' => 'Téléphone', 'name' => 'phone'])
-                @include('shared.input', ['type' => 'email', 'class' => 'w-full', 'label' => 'Email', 'name' => 'email'])
+                @include('shared.input', ['class' => 'w-full', 'label' => 'Téléphone', 'name' => 'phone', 'value' => '06 12 34 56 78'])
+                @include('shared.input', ['type' => 'email', 'class' => 'w-full', 'label' => 'Email', 'name' => 'email', 'value' => 'jean@dubois.fr'])
             </div>
-            @include('shared.input', ['type' => 'textarea', 'class' => 'w-full', 'label' => 'Votre message', 'name' => 'message'])
+            @include('shared.input', ['type' => 'textarea', 'class' => 'w-full', 'label' => 'Votre message', 'name' => 'message', 'value' => 'Mon message pour ce bien'])
 
-            <button type="submit">Nous contacter</button>
+            <button>Nous contacter</button>
         </form>
 
         <div>
@@ -47,6 +50,13 @@
                         <tr>
                             <td>Etage</td>
                             <td>{{ $property->floor ?: 'Rez de chaussé' }}</td>
+                        </tr>
+                        <tr>
+                            <td>Localisation</td>
+                            <td>
+                                {{ $property->address }}<br>
+                                {{ $property->city }} ({{ $property->postal_code }})
+                            </td>
                         </tr>
                     </table>
                 </div>
